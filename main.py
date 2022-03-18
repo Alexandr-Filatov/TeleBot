@@ -38,6 +38,7 @@ def game(message):
             n -= 1
             if n == 0:
                 bot.send_message(message.chat.id, 'Ты проиграл.')
+                bot.send_message(message.chat.id, 'Попробуй ещё раз!')
                 bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAEEMqNiNE4CunoVtM3_BsXkNiR1EX5HgwACIgEAAlKJkSPI4ZRB58JpMyME')
                 n = 3
             else:
@@ -47,6 +48,7 @@ def game(message):
             n -= 1
             if n == 0:
                 bot.send_message(message.chat.id, 'Ты проиграл.')
+                bot.send_message(message.chat.id, 'Попробуй ещё раз!')
                 bot.send_sticker(message.chat.id,'CAACAgIAAxkBAAEEMqNiNE4CunoVtM3_BsXkNiR1EX5HgwACIgEAAlKJkSPI4ZRB58JpMyME')
                 n = 3
             else:
