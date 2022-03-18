@@ -4,7 +4,7 @@ import random
 from telebot import types
 
 number = random.randint(1, 10)
-n = 5
+n = 3
 bot = telebot.TeleBot(config.telegram_token)
 
 @bot.message_handler(commands=['start'])
@@ -28,21 +28,30 @@ def callback_worker(call):
 def game(message):
     global user_number
     try:
+        global n
         user_number = int(message.text)
         if int(message.text) == number:
             bot.send_message(message.chat.id, 'Ты угадал, поздравляю!!!')
             bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAEEL29iMzBOZVNNlxh_aPkDmvc7hMZtDQACGgEAAlKJkSPGYmpoYYli_SME')
+            n = 3
         elif int(message.text) > number:
-            global n
             n -= 1
             if n == 0:
                 bot.send_message(message.chat.id, 'Ты проиграл.')
                 bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAEEMqNiNE4CunoVtM3_BsXkNiR1EX5HgwACIgEAAlKJkSPI4ZRB58JpMyME')
+                n = 3
             else:
-                bot.send_message(message.chat.id, 'Осталось ' + str(n) + ' попыток.')
+                bot.send_message(message.chat.id, 'Осталось попыток: ' + str(n))
                 bot.send_message(message.chat.id, 'Моё число меньше.')
         else:
-            bot.send_message(message.chat.id, 'Моё число больше.')
+            n -= 1
+            if n == 0:
+                bot.send_message(message.chat.id, 'Ты проиграл.')
+                bot.send_sticker(message.chat.id,'CAACAgIAAxkBAAEEMqNiNE4CunoVtM3_BsXkNiR1EX5HgwACIgEAAlKJkSPI4ZRB58JpMyME')
+                n = 3
+            else:
+                bot.send_message(message.chat.id, 'Осталось попыток: ' + str(n))
+                bot.send_message(message.chat.id, 'Моё число больше.')
     except Exception:
         bot.send_message(message.chat.id, 'Вводите цифрами, а не буквами.')
 
